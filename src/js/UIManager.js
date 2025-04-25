@@ -1,5 +1,7 @@
 class UIManager {
+
     constructor(messageHandler) {
+
         this.messageHandler = messageHandler;
         this.welcomeScreen = document.getElementById('welcomeScreen');
         this.appContainer = document.getElementById('appContainer');
@@ -9,19 +11,21 @@ class UIManager {
     }
 
     showWelcomeScreen() {
+
         this.welcomeScreen.style.display = 'flex';
         this.appContainer.style.display = 'none';
     }
 
     showAppContainer() {
+
         this.welcomeScreen.style.display = 'none';
         this.appContainer.style.display = 'flex';
     }
 
     updateMessageList() {
+
         const currentMessage = this.messageHandler.getCurrentMessage();
         const messages = this.messageHandler.getMessages();
-
         this.messageItems.innerHTML = messages.map((msg, index) => {
             const hasRealAttachments = msg.attachments?.some(att => !att.pidContentId) || false;
             const date = msg.timestamp;
@@ -30,10 +34,9 @@ class UIManager {
                 .replace(/<[^>]*>/g, '')
                 .replace(/\s+/g, ' ')
                 .trim();
-
             return `
-                <div class="message-item ${messages[index] === currentMessage ? 'active' : ''} ${this.messageHandler.isPinned(msg) ? 'pinned' : ''}" 
-                     onclick="window.app.showMessage(${index})" 
+                <div class="message-item ${messages[index] === currentMessage ? 'active' : ''} ${this.messageHandler.isPinned(msg) ? 'pinned' : ''}"
+                     onclick="window.app.showMessage(${index})"
                      title="${msg.fileName}">
                     <div class="message-sender">${msg.senderName}</div>
                     <div class="message-subject-line">
@@ -52,34 +55,25 @@ class UIManager {
     }
 
     showMessage(msgInfo) {
+
         this.messageHandler.setCurrentMessage(msgInfo);
         this.updateMessageList();
-        
         const toRecipients = msgInfo.recipients.filter(recipient => recipient.recipType === 'to')
             .map(recipient => `${recipient.name} &lt;${recipient.email}&gt;`).join(', ');
         const ccRecipients = msgInfo.recipients.filter(recipient => recipient.recipType === 'cc')
             .map(recipient => `${recipient.name} &lt;${recipient.email}&gt;`).join(', ');
-
-        // Process email content to scope styles
         let emailContent = msgInfo.bodyContentHTML || msgInfo.bodyContent;
         if (emailContent) {
-            // Create a temporary container to parse the HTML
             const tempDiv = document.createElement('div');
             tempDiv.innerHTML = emailContent;
-
-            // Find all style tags and scope them to .email-content
             const styleTags = tempDiv.getElementsByTagName('style');
             Array.from(styleTags).forEach(styleTag => {
                 const cssText = styleTag.textContent;
-                // Scope all CSS rules to .email-content
                 const scopedCss = cssText.replace(/([^{}]+){/g, '.email-content $1{');
                 styleTag.textContent = scopedCss;
             });
-
-            // Update the email content
             emailContent = tempDiv.innerHTML;
         }
-
         const messageContent = `
             <div class="message-header">
                 <div class="message-title pl-6">${msgInfo.subject}</div>
@@ -111,13 +105,12 @@ class UIManager {
                 ${this.renderAttachments(msgInfo)}
             </div>
         `;
-        
         this.messageViewer.innerHTML = messageContent;
     }
 
     renderAttachments(msgInfo) {
+
         if (!msgInfo.attachments?.length) return '';
-        
         return `
             <div class="mt-6">
                 <hr class="border-t border-gray-200 mb-4">
@@ -129,8 +122,8 @@ class UIManager {
                 </div>
                 <div class="flex flex-wrap gap-4">
                     ${msgInfo.attachments.map(attachment => {
-                        if (attachment.attachMimeTag && attachment.attachMimeTag.startsWith('image/')) {
-                            return `
+            if (attachment.attachMimeTag && attachment.attachMimeTag.startsWith('image/')) {
+                return `
                                 <a href="${attachment.contentBase64}" download="${attachment.fileName}" style="text-decoration:none;" class="min-w-[250px] max-w-fit">
                                     <div class="flex items-center space-x-2 rounded border p-2 hover:border-primary hover:bg-blue-50 transition-colors">
                                         <div class="border rounded w-10 h-10 flex-shrink-0">
@@ -143,8 +136,8 @@ class UIManager {
                                     </div>
                                 </a>
                             `;
-                        } else {
-                            return `
+            } else {
+                return `
                                 <a href="${attachment.contentBase64}" download="${attachment.fileName}" class="text-sm text-gray-600 no-underline min-w-[250px] max-w-fit">
                                     <div class="flex items-center rounded border p-2 hover:border-primary hover:bg-blue-50 transition-colors">
                                         <div class="flex-shrink-0 w-10 h-10 flex items-center justify-center">
@@ -159,18 +152,18 @@ class UIManager {
                                     </div>
                                 </a>
                             `;
-                        }
-                    }).join('')}
+            }
+        }).join('')}
                 </div>
             </div>
         `;
     }
 
     formatMessageDate(date) {
+
         const now = new Date();
         const yesterday = new Date(now);
         yesterday.setDate(yesterday.getDate() - 1);
-        
         if (date.toDateString() === now.toDateString()) {
             return date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
         } else if (date.toDateString() === yesterday.toDateString()) {
@@ -183,12 +176,14 @@ class UIManager {
     }
 
     showDropOverlay() {
+
         this.dropOverlay.classList.add('active');
     }
 
     hideDropOverlay() {
+
         this.dropOverlay.classList.remove('active');
     }
 }
 
-module.exports = UIManager; 
+module.exports = UIManager;

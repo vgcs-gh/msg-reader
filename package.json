@@ -1,40 +1,73 @@
 {
-  "name": "test-msg-files",
-  "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-    "build": "npm run build:css && npm run build:js",
-    "build:js": "browserify src/js/main.js -o dist/bundle.js",
-    "build:css": "tailwindcss -i src/styles.css -o dist/styles.css",
-    "watch": "concurrently \"npm run watch:js\" \"npm run watch:css\"",
-    "watch:js": "watchify src/js/main.js -o dist/bundle.js -v",
-    "watch:css": "tailwindcss -i src/styles.css -o dist/styles.css --watch",
-    "dev": "concurrently \"npm run watch\" \"live-server --watch=dist --port=8080\"",
-    "start": "npm run build && npx live-server dist --port=8080",
-    "build-gh-pages": "npm run build && rm -rf .gh-pages && mkdir -p .gh-pages && cp -r dist .gh-pages/ && cp index.html .gh-pages/ && cp -r res .gh-pages/ && cp -r doc .gh-pages/ && cp tailwind.config.js .gh-pages/ && cp postcss.config.js .gh-pages/",
-    "deploy": "npm run build-gh-pages && gh-pages -d .gh-pages"
+  "author": {
+    "email": "vgcs@tuta.com",
+    "name": "Torben Buck, Vittorio Giorgio Candolo"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
+  "build": {
+    "appId": "xyz.vgcs.msg-reader",
+    "directories": {
+      "output": "out"
+    },
+    "files": [
+      "dist/**/*",
+      "index.html",
+      "src/js/electron.js"
+    ],
+    "linux": {
+      "description": "Open and read *.msg and *.eml files.",
+      "target": [
+        "deb",
+        "rpm"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "productName": "msg-reader",
+    "win": {
+      "target": "portable"
+    }
+  },
   "dependencies": {
-    "@kenjiuno/decompressrtf": "^0.1.4",
+    "@kenjiuno/decompressrtf": "^0.1.0",
     "@kenjiuno/msgreader": "^1.22.0",
-    "emailjs-mime-codec": "^2.0.9",
-    "iconv-lite": "^0.6.3",
+    "emailjs-mime-codec": "^2.0.0",
+    "iconv-lite": "^0.6.0",
     "md5": "^2.3.0",
     "rtf-stream-parser": "^3.8.0"
   },
+  "description": "Simple email reader for Outlook .msg files",
   "devDependencies": {
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.0",
     "browserify": "^17.0.0",
-    "concurrently": "^8.2.2",
-    "cpx": "^1.5.0",
-    "gh-pages": "^6.1.1",
-    "live-server": "^1.2.2",
-    "postcss": "^8.4.32",
+    "concurrently": "^9.1.0",
+    "cpx": "^1.2.1",
+    "electron": "^35.1.4",
+    "electron-builder": "^26.0.12",
+    "live-server": "^1.2.0",
+    "postcss": "^8.5.0",
     "tailwindcss": "^3.4.0",
     "watchify": "^4.0.0"
-  }
+  },
+  "homepage": "msg-reader.vgcs.xyz",
+  "icon": "icon.png",
+  "keywords": [
+    "msg",
+    ".msg",
+    "outlook",
+    "email",
+    "reader"
+  ],
+  "license": "MIT",
+  "main": "src/js/electron.js",
+  "name": "msg-reader",
+  "scripts": {
+    "build": "npm run build:css && npm run build:js",
+    "build:css": "npx tailwindcss -i src/styles.css -o dist/styles.css",
+    "build:js": "browserify src/js/main.js -o dist/bundle.js",
+    "dev": "concurrently \"npm run watch\" \"live-server --watch=dist --port=8080\"",
+    "start:electron": "electron .",
+    "start:web": "npm run build && npx live-server --port=8080"
+  },
+  "version": "1.1.0-rc1"
 }

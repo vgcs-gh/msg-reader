@@ -3,12 +3,13 @@
 @tailwind utilities;
 
 @layer components {
+
     :root {
-        --primary-color: #3b82f6; /* blue-500 */
-        --secondary-color: #64748b; /* slate-500 */
-        --background-color: #f8fafc; /* slate-50 */
-        --text-color: #0f172a; /* slate-900 */
-        --border-radius: 1rem; /* equivalent to rounded-2xl */
+        --primary-color: #3b82f6;
+        --secondary-color: #64748b;
+        --background-color: #f8fafc;
+        --text-color: #0f172a;
+        --border-radius: 1rem;
     }
 
     .drop-overlay {
@@ -27,13 +28,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border: 3px dashed #3b82f6; /* blue-500 */
+        border: 3px dashed #3b82f6;
         border-radius: 1rem;
     }
 
     .drop-message {
         font-size: 1.2rem;
-        color: #3b82f6; /* blue-500 */
+        color: #3b82f6;
         text-align: center;
     }
 
@@ -71,15 +72,15 @@
 
     .upload-area {
         padding: 1rem;
-        border: 2px dashed #cbd5e1; /* slate-300 */
+        border: 2px dashed #cbd5e1;
         margin: 23px 1rem 1rem 2rem;
         text-align: center;
         cursor: pointer;
     }
 
     .upload-area:hover {
-        border-color: #3b82f6; /* blue-500 */
-        color: #3b82f6; /* blue-500 */
+        border-color: #3b82f6;
+        color: #3b82f6;
     }
 
     .message-items {
@@ -99,35 +100,35 @@
     }
 
     .message-item:hover {
-        border-color: #e2e8f0; /* slate-200 */
-        background-color: #f1f5f9; /* slate-100 */
+        border-color: #e2e8f0;
+        background-color: #f1f5f9;
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     }
 
     .message-item.active {
-        background-color: #dbeafe; /* blue-100 */
-        border-color: #3b82f6; /* blue-500 */
+        background-color: #dbeafe;
+        border-color: #3b82f6;
     }
 
     .message-sender {
         font-weight: 600;
-        color: #0f172a; /* slate-900 */
+        color: #0f172a;
         margin-bottom: 0.125rem;
     }
 
     .message-subject {
         font-weight: 500;
-        color: #1e293b; /* slate-800 */
+        color: #1e293b;
         font-size: 0.95rem;
     }
 
     .attachment-icon {
-        color: #64748b; /* slate-500 */
+        color: #64748b;
         font-size: 0.875rem;
     }
 
     .message-preview {
-        color: #64748b; /* slate-500 */
+        color: #64748b;
         font-size: 0.875rem;
         white-space: nowrap;
         overflow: hidden;
@@ -137,7 +138,7 @@
 
     .message-date {
         font-size: 0.75rem;
-        color: #94a3b8; /* slate-400 */
+        color: #94a3b8;
         flex-shrink: 0;
     }
 
@@ -187,17 +188,17 @@
 
     .message-item.pinned {
         background-color: #fff7ed;
-        border: 1px solid #fdba74; /* orange-300 */
+        border: 1px solid #fdba74;
         border-radius: 1rem;
     }
 
     .message-item.pinned.active {
-        background-color: #ffedd5; /* orange-100 */
-        border-color: #fb923c; /* orange-400 */
+        background-color: #ffedd5;
+        border-color: #fb923c;
     }
 
     .message-item.pinned:hover {
-        border-color: #fb923c; /* orange-400 */
+        border-color: #fb923c;
     }
 
     .welcome-screen {
@@ -210,14 +211,14 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: #f8fafc; /* slate-50 */
+        background-color: #f8fafc;
         gap: 1.5rem;
     }
 
     .welcome-content {
         text-align: center;
         padding: 3rem;
-        border: 3px dashed #cbd5e1; /* slate-300 */
+        border: 3px dashed #cbd5e1;
         border-radius: 1.5rem;
         background-color: white;
     }
@@ -254,7 +255,8 @@
     }
 
     .browse-button {
-        color: #3b82f6; /* blue-500 */
+        color: #3b82f6;
+        /* blue-500 */
         text-decoration: underline;
         cursor: pointer;
     }
@@ -283,6 +285,6 @@
     }
 
     .message-item.pinned:hover {
-        border-color: #f97316; /* orange-500 */
+        border-color: #f97316;
     }
-} 
+}
